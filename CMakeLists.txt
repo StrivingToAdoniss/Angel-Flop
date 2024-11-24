@@ -24,3 +24,11 @@ FetchContent_MakeAvailable(raylib)
 
 # Add subdirectories
 add_subdirectory(src)
+
+add_custom_target(CopyAssets ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/assets
+    COMMENT "Copying assets folder to build directory"
+)
+
+# Ensure the CopyAssets target runs before building the project
+add_dependencies(${projectName} CopyAssets)
